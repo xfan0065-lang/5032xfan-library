@@ -12,9 +12,11 @@
                 type="text"
                 class="form-control"
                 id="username"
-                required
                 v-model="formData.username"
+                @blur="() => validateName(true)"
+                @input="() => validateName(false)"
               >
+              <div v-if="errors.username" class="text-danger">{{ errors.username }}</div>
             </div>
 
             <div class="col-md-6">
@@ -23,10 +25,11 @@
                 type="password"
                 class="form-control"
                 id="password"
-                minlength="4"
-                maxlength="10"
                 v-model="formData.password"
+                @blur="() => validatePassword(true)"
+                @input="() => validatePassword(false)"
               >
+              <div v-if="errors.password" class="text-danger">{{ errors.password }}</div>
             </div>
           </div>
 
@@ -121,12 +124,55 @@ const formData = ref({
   gender: ''
 });
 
+const errors = ref({
+  username: null,
+  password: null,
+  resident: null,
+  gender: null,
+  reason: null,
+});
+
 const submittedCards = ref([]);
 
+const validateName = (blur) => {
+  if (formData.value.username.length < 3) {
+    if (blur) errors.value.username = "Name must be at least 3 characters";
+  } else {
+    errors.value.username = null;
+  }
+};
+
+const validatePassword = (blur) => {
+  const password = formData.value.password;
+  const minLength = 8;
+  const hasUppercase = /[A-Z]/.test(password);
+  const hasLowercase = /[a-z]/.test(password);
+  const hasNumber = /\d/.test(password);
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+  if (password.length < minLength) {
+    if (blur) errors.value.password = `Password must be at least ${minLength} characters long.`;
+  } else if (!hasUppercase) {
+    if (blur) errors.value.password = "Password must contain at least one uppercase letter.";
+  } else if (!hasLowercase) {
+    if (blur) errors.value.password = "Password must contain at least one lowercase letter.";
+  } else if (!hasNumber) {
+    if (blur) errors.value.password = "Password must contain at least one number.";
+  } else if (!hasSpecialChar) {
+    if (blur) errors.value.password = "Password must contain at least one special character.";
+  } else {
+    errors.value.password = null;
+  }
+};
+
 const submitForm = () => {
-  submittedCards.value.push({
-    ...formData.value
-  });
+  validateName(true);
+  validatePassword(true);
+
+  if (!errors.value.username && !errors.value.password) {
+    submittedCards.value.push({ ...formData.value });
+    clearForm();
+  }
 };
 
 const clearForm = () => {
