@@ -2,6 +2,12 @@
 
 This template should help get you started developing with Vue 3 in Vite.
 
+## Deployed versions
+
+- GitHub Pages (GitHub Actions CI/CD, `.github/workflows/deploy.yml`): https://xfan0065-lang.github.io/5032xfan-library/
+- Cloudflare Pages, deployed from Git: https://xfan-library-git.pages.dev
+- Cloudflare Pages, deployed from the IDE with C3: https://xfan-library-319.pages.dev
+
 ## Recommended IDE Setup
 
 [VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
