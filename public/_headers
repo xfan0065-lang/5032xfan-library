@@ -1,0 +1,6 @@
+# Cloudflare Pages response headers
+# Vite puts a content hash in every file name under /assets, so these files can be cached for a year.
+# Cross-Origin-Resource-Policy stops other websites from embedding (hotlinking) these files.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+  Cross-Origin-Resource-Policy: same-origin
