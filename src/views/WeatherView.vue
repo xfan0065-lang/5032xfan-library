@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 // Open-Meteo is free and does not need an API key
 const GEOCODING_URL = 'https://geocoding-api.open-meteo.com/v1/search'
@@ -87,6 +87,9 @@ const getWeather = async () => {
     loading.value = false
   }
 }
+
+// show the weather for the default city as soon as the page opens
+onMounted(getWeather)
 
 const useMyLocation = () => {
   errorMessage.value = ''
