@@ -17,6 +17,7 @@ const handleLogout = () => {
 
       <div class="navbar-nav ms-auto align-items-center">
         <router-link class="nav-link" to="/">Home</router-link>
+        <router-link class="nav-link" to="/WeatherCheck">Get Weather</router-link>
 
         <template v-if="isAuthenticated">
           <router-link class="nav-link" to="/about">About</router-link>
