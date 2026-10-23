@@ -1,11 +1,15 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 
 // Open-Meteo is free and does not need an API key
 const GEOCODING_URL = 'https://geocoding-api.open-meteo.com/v1/search'
 const FORECAST_URL = 'https://api.open-meteo.com/v1/forecast'
 
-const city = ref('Melbourne')
+const route = useRoute()
+
+// a city can be passed in the link, e.g. /WeatherCheck?city=Sydney
+const city = ref(route.query.city || 'Melbourne')
 const weather = ref(null)
 const errorMessage = ref('')
 const loading = ref(false)
